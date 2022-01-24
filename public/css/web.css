@@ -1,0 +1,208 @@
+header, footer {
+    padding: 10px;
+    color: white;
+    background-color: rgb(64, 92, 251);
+    clear: left; 
+    text-align: center;
+    letter-spacing: 2px;    
+}
+
+body{
+    font-family: var(--font_family);
+}
+header{
+    line-height: 50px;
+}
+
+.header{
+    display: flex;
+    background-color: lightskyblue;
+    font-size: 13px;
+
+}
+.logo{
+    flex: 1;
+}
+.menu{
+    flex: 10;
+}
+#sinhvien{
+    margin: 20px;
+}
+.timkiemhocphan{
+    float: left;
+    padding: 10px;
+    font-size: 17px;
+}
+.other{
+    flex: 3;
+    /* margin: 0 50px; */
+    display: inline-flex;
+    line-height: 50px;
+    font-weight: bold;
+    padding-left: 50px;
+    float: right;
+}
+
+.other span{
+    text-decoration-line: underline;
+    font-style: italic;
+    align-items:baseline;
+}
+.other .glyphicon{
+    align-items: center;
+    font-size: 25px;
+    line-height: 45px;
+    padding-left: 30px;
+    margin-top: 0;
+    float:right;
+    padding-right: 5px;
+}
+.fa{
+    align-items: center;
+    font-size: 25px;
+    line-height: 45px;
+    left: -20px;
+    padding-right: 5px;
+}
+
+
+ul{
+    list-style: none;
+    margin:0px ;
+    /* display: flex; */
+}
+ul li{
+    position: relative;
+    text-align: left;
+    border: #f2f2f2 solid 1px; 
+}
+ul li a, span a{
+    /* display: block;  */
+    padding: 5px;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 21px;
+}
+ul li a:hover{
+    text-decoration: none;
+    background-color: rgb(241, 129, 129);
+}
+
+div input{
+    width: 300px;
+    padding: 7px;
+    font-size: 15px;
+}
+
+#myTable {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+    font-size: 20px;
+    padding: 0px !important;
+    margin: 10px;
+}
+  
+  #myTable th, td {
+    text-align: center;
+    padding: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border: rgb(14, 7, 7) solid 0.5px;
+
+  }
+  
+thead {
+    border-bottom: 3px solid rgb(60, 105, 255);
+    background-color:lightblue
+  }
+.info{
+    padding: 40px;
+}
+.item{
+    display: flex;
+    height: 90px;
+    margin: 10px;
+    border: rgb(157, 143, 219) solid 2px;
+    border-radius: 5px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.info .item .item-left {
+    text-align: center;
+    border-radius: 4px;
+    background-color: #989fdb;
+    padding: 15px;
+    margin: 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.info .item .item-right {
+    border-radius: 4px;
+    padding: 15px;
+    margin: 5px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.info-stu{
+    display: flex;
+    margin-top:0px;
+}
+.info-stu div span{
+    margin: 20px;
+    margin-top: 10px;
+    padding-left:30px;
+    position: relative;
+    float: left;
+    line-height: 30px;
+    font-size: 16px;
+}
+hr{
+    background-color: rgb(43, 21, 241);
+    padding: 3px;
+}
+
+:root {
+    --font_family: 'Roboto', sans-serif;
+    --main_color: #001C40;
+    --main_bg: #ff2222;
+    --login_bg: #001C40;
+    --white_bg: #ffffff;
+    --onehundred_percent: 100%;
+    --black_color: #000;
+    --back_bg: #000000;
+    --margin_0: 0px;
+    --padding_0: 0px;
+    --none: none;
+    --transparent: transparent;
+    --font_14: 14px;
+    --font_13: 13px;
+    --font_15: 15px;
+    --font_17: 17px;
+    --font-22: 22px;
+    --nine-900: 900;
+    --center: center;
+    --one_five: 1.5;
+    --radius_5px: .357rem;
+    --vh_100: 100vh;
+    --h_45: 45px;
+    --auto: auto;
+    --w_960px: 960px;
+    --w_316: 316px;
+    --w_500: 500;
+    --w300: 300px;
+    --flex-element: flex;
+    --wrap-element: wrap;
+    --radius_10: 10px;
+    --px_1: 1px;
+    --e_flex: flex;
+    --shadow-form: 1px 1px 10px #00000070;
+    --hidden-element: hidden;
+    --bg-cover: cover;
+    --cursor_pointer: pointer;
+    --p_wrap_login: 100px 100px 50px 100px;
+    --shadow_login: 0px 0px 20px 0px #0000003b;
+}

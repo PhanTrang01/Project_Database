@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm Thông tin sinh <var></var></title>
+    <link rel="stylesheet" type ="text/css" href = "/css/web.css" />
+    <link rel="stylesheet" type ="text/css" href = "/css/style_teacherr.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- sweetalert -->
+    <link rel='stylesheet' href='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.css'>
+    <script src='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.min.js'></script>
+    <style>
+        form input{
+            width: 350px;
+            line-height: 35px;
+
+        }
+        form{
+            margin: 30px auto;
+            padding: 20px;
+        }
+        select{
+            width: 350px;
+            height: 35px;
+        }
+        #submit{
+            background-color: rgb(129, 129, 207);
+            border-radius: 10px;
+        }
+      </style>
+</head>
+<body>
+    <header>
+        <h3>Hệ Thống Thông Tin Sinh Viên</h3>
+    </header>
+    <div class = "header">
+        <div class = "logo"><img src = '/image/logo.png' style = "width : 50px;" /></div>
+        <div class = "menu">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/admin/admin_home"  title=" THÔNG BÁO">THÔNG BÁO</a></li>
+                <li><a href="/admin/admin_teacher"  title="GIANG VIÊN">GIẢNG VIÊN</a></li>
+                <li><a href="/admin/admin_student"  title="SINH VIÊN">SINH VIÊN</a></li>
+                <li><a href="/logout"  title="ĐĂNG XUẤT"><b>ĐĂNG XUẤT</b></a></li>
+        </div>
+        <div class = "other"><span><a href=""> Admin</a></span><i class="glyphicon glyphicon-user"></i></div>
+    </div>
+    <div style="display: flex; margin:10px 0 0 200px; ">
+        <a href="/admin/admin_teacher" class="btn btn-info btn-lg" style=" margin:0px 200px 0 0px; height: 45px;">
+            <span class="glyphicon glyphicon-arrow-left"></span> Back
+        </a>
+    </div>
+    <div style="display: flex; margin:10px 0 0 500px; ">
+        <span><h3>Thêm thông tin giảng viên</h3> <hr></span>
+    </div>
+    
+    <form align='center' id='form4' action='/admin/admin_teacher' method="POST" style="border: 2px solid grey; width: 600px;">
+        <label for="name">Họ tên</label></br>
+        <input name = "Name" id='input1' type="text" onkeyup="return Kiemtranhapkitu(input1)"></br>
+        <label  id='mess1' style="color:black;"></label></br>
+        <label for="dateOfbirth">Ngày Sinh </label></br>
+        <input name = "Dateofbirth" id='input5' type="date" ></br></br>
+        <label for="departID">Viện chuyên ngành </label></br>
+        <!-- <input name = "DepartID" id='input8' type="text"></br></br> -->
+        <select name="DepartID" id="departID">
+            <%
+            if(data.recordset.length!=0){
+            for(var i=0; i< data.recordset.length; i++){
+            %>
+                <option value= <%=data.recordset[i].departID %> >  <%=data.recordset[i].departID %> </option>
+            <% }}  %>
+        </select></br>
+        <label for="gender" >Giới tính </label></br>
+        <select name="Gender" id="input2">
+            <option value="0">Nữ</option>
+            <option value="1">Nam</option>
+        </select></br>
+        <!-- <input name = "gender" id='input2' placeholder="Nam: 0; Nữ: 1" type="text" onkeyup="return Kiemtragioitinh(input2)"></br>
+        <label  id='mess2' style="color:black;"></label></br> -->
+        <label for="email">Email </label></br>
+        <input name = "Email" id='input3' type="text" onkeyup="Kiemtraemail(event,input3)"></br>
+        <label  id='mess3' style="color:black;"></label></br>
+        <label for="cccd">Số CCCD </label></br>
+        <input name = "cccd" id='input4' type="text" onkeyup="Kiemtranhapso(input4)"></br>
+        <label  id='mess4' style="color:black;"></label></br>
+        <label for="numberphone">Số điện thoại </label></br>
+        <input name = "Numberphone" id='input6' type="text" onkeyup="Kiemtranhapso1(input6)"></br>
+        <label  id='mess5' style="color:black;"></label></br>
+        <input  type="submit" value="Lưu thông tin" id="submit" />
+    </form>
+    <footer></br>HUST &copy; @author_PhanTrang</footer>
+<script>
+    function Kiemtranhapkitu(kt){
+        var letter1=/[A-Z]/g;
+        var letter2=/[a-z]/g;
+        var letter3 = " ";
+        regex = /[0-9]/g;
+            var noti1=document.getElementById('mess1');
+            if(kt.value.match(regex)){
+                noti1.innerHTML='Sai định dạng tên';
+                return false
+            }else{
+                noti1.innerHTML='';
+                return false
+            }
+
+        }
+    function Kiemtranhapso(so){
+        // var letter=/^[0-9]+$/;
+        // var mess1=document.getElementById('mess4');
+        // if (!so.value.match(letter))//Bên html đã truy vấn tới thẻ input r bên đây chỉ .value nữa là đủ
+        // {
+        //     mess1.innerHTML='Sai định dạng';
+        //     return false; 
+        // }
+        // else { 
+        //     mess1.innerHTML='Bạn nhập thành công rồi';
+        // return false;
+        // }
+        var letter=/^[0-9]+$/;
+        var mess1=document.getElementById('mess4');
+        if (!so.value.match(letter))//Bên html đã truy vấn tới thẻ input r bên đây chỉ .value nữa là đủ
+        {
+            mess1.innerHTML='Sai định dạng';
+            return false; 
+        }
+        else { 
+            if(so.value.length > 13 || so.value.length < 11){
+                mess1.innerHTML='CCCD có độ dài là 12';
+                return false; 
+            }else{
+                mess1.innerHTML='';
+            return false;
+            }
+        }
+    }
+    function Kiemtraemail(event,email){
+        event.preventDefault();
+        var letter3= /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        
+        var mess2=document.getElementById('mess3');
+        if (email.value.match(letter3))
+        {
+            mess3.innerHTML='';
+        }
+        else 
+        {
+            mess3.innerHTML='Bạn nhập định dạng email sai rồi (abc@gmail.com)';
+            email.focus();
+        }
+    }
+    function Kiemtranhapso1(so){
+        var letter=/^[0-9]+$/;
+        var mess1=document.getElementById('mess5');
+        if (!so.value.match(letter))//Bên html đã truy vấn tới thẻ input r bên đây chỉ .value nữa là đủ
+        {
+            mess1.innerHTML='Sai định dạng';
+            return false; 
+        }
+        else { 
+            if(so.value.length > 10 || so.value.length < 9){
+                mess1.innerHTML='SĐT chứa tối da 10 kí tự';
+                return false; 
+            }else{
+                mess1.innerHTML='';
+            return false;
+            }
+        }
+    }
+    const mess1 = document.getElementById('mess1');
+    const mess3 = document.getElementById('mess3');
+    const mess4 = document.getElementById('mess4');
+    const mess5 = document.getElementById('mess5');
+    const submit = document.getElementById('submit');
+    submit.onclick = function(e){
+        //e.preventDefault();
+        if(mess1.innerText !== '' || mess3.innerText !== '' || mess4.innerText !== ''  || mess5.innerText !== '' ){
+        alert('loi kia');
+            return false;
+        }
+        return true;
+    } 
+
+</script>
+</body>
+</html>

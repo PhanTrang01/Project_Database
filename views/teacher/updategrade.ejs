@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cập nhật điểm</title>
+    <link rel="stylesheet" type ="text/css" href = "/css/web.css" />
+    <link rel="stylesheet" type ="text/css" href = "/css/style_teacherr.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type ="text/javascript" src = "/web.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- sweetalert -->
+    <link rel='stylesheet' href='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.css'>
+    <script src='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.min.js'></script>
+</head>
+
+<body>
+    <header>
+        <h3>Hệ Thống Thông Tin Sinh Viên</h3>
+    </header>
+    <div class = "header">
+        <div class = "logo"><img src = '/image/logo.png' style = "width : 50px;" /></div>
+        <div class = "menu">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/teacher/teacherhome"  title="TRANG CHỦ">TRANG CHỦ</a></li>
+                <li><a href="/teacher/teachertimetable"  title="THỜI KHOA BIỂU">THỜI KHOA BIỂU GIẢNG DẠY</a></li>
+                <li><a href="/teacher/updategrade"  title="KẾT QUẢ HỌC TẬP">CẬP NHẬT KẾT QUẢ HỌC TẬP</a></li>
+                <li><a href="/logout"  title="ĐĂNG XUẤT"><b>ĐĂNG XUẤT</b></a></li>
+        </div>
+        <div class = "other"><span><a href="/teacher/teacherprofile"><%=username%></a></span><i class="glyphicon glyphicon-user"></i></div>
+    </div>
+    <form action="/teacher/updategrade" method="GET">
+        <div class = "chose" >
+            <label for="classID" class="timkiemhocphan">Mã lớp học </label>
+            
+            <select name="classID" id="classID">
+                <%
+                if(data.recordset.length!=0){
+                for(var i=0; i< data.recordset.length; i++){
+                %>
+                    <option value= <%=data.recordset[i].classID %> >  <%=data.recordset[i].name.concat("-",data.recordset[i].classID.toString()) %></td>
+                <% }}  %>
+            </select>
+           
+            <input id="button_submit" type="submit" value="Tìm kiếm"> 
+        </div>
+    </form>
+    
+    <div>
+        <a href='/teacher/class-excel-download/?class=<%= classid%>'> download excel file
+        </a>  
+    </div>
+
+    <form>
+        <table class = "Attend" id = "myTable" >
+            <thead>
+                <tr class=>
+                    <th>STT</th>
+                    <th>MSSV</th>
+                    <th>Họ Tên</th>
+                    <th>Ngày sinh</th>
+                    <th>Điểm QT</th>
+                    <th>Điểm CK</th>
+                    <th>Điểm tổng kết HP</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+
+                <%
+                    if(data1.recordset.length!=0){
+                    for(var i=0; i< data1.recordset.length; i++){
+                    %>
+                    <tr>
+                        <td class="index"><%=data1.recordset[i].stt %></td>
+                        <td id='idColumn<%=i%>' disabled ><%=data1.recordset[i].studentID %></td>
+                        <td><%=data1.recordset[i].name %></td>
+                        <td><%=data1.recordset[i].dateofbirth.getDate() +"/" + (data1.recordset[i].dateofbirth.getMonth()+1)+"/" +  data1.recordset[i].dateofbirth.getFullYear() %></td>
+                        <td class = "editable"><%=data1.recordset[i].midterm_grade %></td>
+                        <td class = "editable"><%=data1.recordset[i].finalterm_grade %></td>
+                        <td><%=data1.recordset[i].avg_grade %></td>
+                        
+                        <td>
+                            <a class="add" title="Lưu Lại" data-toggle="tooltip"><i class="fa fa-floppy-o"
+                                    aria-hidden="true"></i></a>
+                            <a class="edit" title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
+                                    aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                  
+                    <% }}else{ %>
+                        <tr>
+                            <td colspan="7">No Data Found</td>
+                        </tr>
+                    <% } %>
+
+            </tbody>
+        </table>
+        <br>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+        <!-- <input id ="button_submit" type="submit" value="Lưu"> -->
+        <br>  <br> 
+    </form>
+    
+    <footer></br>HUST &copy; @author_PhanTrang</footer>
+    <script>
+      
+        var classId = '<%= classid%>';
+        $("div.chose select").val("<%= classid%>");
+         $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            var actions = $("table td:last-child").html();
+            $(document).on("click", ".edit", function () {
+                $(this).parents("tr").find(".editable").each(function () {
+                    $(this).html('<input type="text" class="form-control" id = "nhapdiem"  value="' + $(this)
+                        .text() + '">');
+                });
+                $(this).parents("tr").find(".add, .edit ").toggle();
+            });
+            $(document).on("click", ".add", function () {
+                var empty = false;
+                let td = $(this).parents('tr').find('td');
+                var input = $(this).parents("tr").find('input[type="text"]');
+                
+                $(this).parents("tr").find(".error").first().focus();
+                // console.log(tr);
+                if (!empty) {
+                    let arr = [];
+                    
+                    
+                    // const id = $(`#idColumn`).text();
+                    
+                   
+                    // const classId = $('#classID').val();
+                    arr.push(td[1].innerText);
+                    arr.push(classId);
+
+                    input.each(function () {
+                        $(this).parent("td").html($(this).val());
+                        arr.push($(this).val());
+                        //alert($(this).val());
+                    });
+                    console.log(arr);
+                    $.ajax({
+                        url:'http://localhost:3000/teacher/updategrade',
+                        type:'POST',
+                        data:{
+                        studentID:arr[0],
+                        classID:arr[1],
+                        midterm:arr[2],
+                        lastterm:arr[3]
+                        
+                        },
+                        success:function(response){
+                            if(response){
+                                console.log(response);
+                                swal("Thành Công", "Bạn Đã Cập Nhật Thành Công", "success");
+                                window.location.reload();                                 
+                            }else{
+                                swal("That bai", "Loi server", "error");
+                            }
+                        }
+                    })
+                    $(this).parents("tr").find(".add, .edit").toggle();
+                    // $(".add-new").removeAttr("disabled");
+                    // $("#namsinh").attr("disabled");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

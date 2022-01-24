@@ -1,0 +1,37 @@
+.chose{
+    margin: 40px;
+    display: flex;
+}
+
+#button_submit{
+    width: 90px;
+    margin: 5px 5px 5px 20px;
+    line-height: 25px;
+
+}
+
+.Attend tbody{
+    font-size: 20px;
+}
+
+.nv{
+    background: rgb(39, 88, 233);
+    border: 1px solid rgb(116, 102, 241);  
+    width: 100px;
+    height: 30px;
+    border-radius:5px;
+    color: white;
+    margin: 30px;
+    font-weight: 500;
+}
+
+
+table td a.add{
+    color: rgb(15, 214, 98);
+    display: none;
+}
+
+td select{
+    width: 100px;
+    font-size: 18px;
+}

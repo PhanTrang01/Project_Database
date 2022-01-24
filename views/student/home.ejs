@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trang Chủ</title>
+    <link rel="stylesheet" type ="text/css" href = "/css/web.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type ="text/javascript" src = "/web.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <header>
+        <h3>Hệ Thống Thông tin Sinh Viên</h3>
+    </header>
+    <div class = "header">
+        <div class = "logo"><img src = '/image/logo.png' style = "width : 50px;" /></div>
+        <div class = "menu">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/student/home"  title="TRANG CHỦ">TRANG CHỦ</a></li>
+                <li><a href="/student/timetable"  title="THỜI KHOA BIỂU">THỜI KHOA BIỂU</a></li>
+                <li><a href="/student/grade"  title="KẾT QUẢ HỌC TẬP">KẾT QUẢ HỌC TẬP</a></li>
+                <li><a href="/student/roadmap"  title="CHƯƠNG TRINH HỌC">CHƯƠNG TRINH HỌC</a></li>
+                <li><a href="/logout"  title="ĐĂNG XUẤT"><b>ĐĂNG XUẤT</b></a></li>
+        </div>
+        <div class = "other"><span><a href="/student/studentprofile"> <%=username%> </a></span><i class="glyphicon glyphicon-user"></i></div>
+    </div>
+        
+    <div>
+        <img src="/image/Cover .jpg" style = "width : 100%; height: 350px;" />
+    </div>
+    <div class="info">
+        <h3><b>Thông báo</b></h3>
+        <div class="content">
+            <%
+            if(data.recordset.length!=0){
+            for(var i=data.recordset.length-1; i>= 0; i--){
+            %>
+            <div class="item">
+                <div class="item-content item-left date">
+                    <p class="month">Tháng <%= (data.recordset[i].release_date.getMonth()+1) %></p>
+                    <p class="date"> <%= data.recordset[i].release_date.getDate() %></p>
+                </div>
+                <div class="item-content item-right">
+                    <a href=<%= data.recordset[0].URL %>>
+                        <p class="title">
+                            <b>[DTDH]</b> <%= data.recordset[i].title %>
+                        </p>
+                        <p class="datetime"><%= data.recordset[i].release_date.getDate() +"/" + (data.recordset[i].release_date.getMonth()+1)+"/" +  data.recordset[i].release_date.getFullYear() %></p>
+                    </a>
+                </div>
+            </div>
+            <% }}else{ %>
+                <tr>
+                    <td colspan="7">No Data Found</td>
+                </tr>
+            <% } %>
+            <!-- <div class="item">
+                <div class="item-content item-left date">
+                    <p class="month">Tháng  11</p>
+                    <p class="date"> 22</p>
+                </div>
+                <div class="item-content item-right">
+                    <a href="https://ctt.hust.edu.vn/DisplayWeb/DisplayKehoach?kehoach=25138">
+                        <p class="title">
+                            <b>[DTDH]</b> Lịch thi Giữa kỳ - Cuối kỳ học kỳ 20211
+                        </p>
+                        <p class="datetime">22.11.2021</p>
+                    </a>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-content item-left date">
+                    <p class="month">Tháng  11</p>
+                    <p class="date"> 17</p>
+                </div>
+                <div class="item-content item-right">
+                    <a href="https://ctt.hust.edu.vn/DisplayWeb/DisplayKehoach?kehoach=25137">
+                        <p class="title">
+                            <b>[ĐTĐH]</b> Kế hoạch mở đăng k&#253; th&#234;m v&#224;o c&#225;c lớp học từ đợt B kỳ 20211. (20211-B)
+                        </p>
+                        <p class="datetime">10h00 ng&#224;y 17.11.2021</p>
+                    </a>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-content item-left date">
+                    <p class="month">Tháng  11</p>
+                    <p class="date"> 09</p>
+                </div>
+                <div class="item-content item-right">
+                    <a href="https://ctt.hust.edu.vn/DisplayWeb/DisplayKehoach?kehoach=25136">
+                        <p class="title">
+                            <b>[ĐTĐH]</b> Kế hoạch mở đăng k&#253; x&#233;t tốt nghiệp kỳ 2021.1A
+                        </p>
+                        <p class="datetime">09/11/2021</p>
+                    </a>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+    <footer></br>HUST &copy; @author_PhanTrang</footer> 
+<script>
+    var curDate = new Date();
+    var curMonth = curDate.getMonth() + 1;
+    document.getElementById('Time').innerText ='Tháng' + curMonth;
+</script>
+</body>
+</html>

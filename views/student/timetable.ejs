@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hệ Thống</title>
+    <link rel="stylesheet" type ="text/css" href = "/css/web.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type ="text/javascript" src = "/web.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <header>
+        <h3>Hệ Thống Thông tin Sinh Viên</h3>
+    </header>
+    <div class = "header">
+        <div class = "logo"><img src = '/image/logo.png' style = "width : 50px;" /></div>
+        <div class = "menu">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/student/home"  title="TRANG CHỦ">TRANG CHỦ</a></li>
+                <li><a href="/student/timetable"  title="THỜI KHOA BIỂU">THỜI KHOA BIỂU</a></li>
+                <li><a href="/student/grade"  title="KẾT QUẢ HỌC TẬP">KẾT QUẢ HỌC TẬP</a></li>
+                <li><a href="/student/roadmap"  title="CHƯƠNG TRINH HỌC">CHƯƠNG TRINH HỌC</a></li>
+                <li><a href="/logout"  title="ĐĂNG XUẤT"><b>ĐĂNG XUẤT</b></a></li>
+        </div>
+        <div class = "other"><span><a href="/student/studentprofile">  <%=username%></a></span><i class="glyphicon glyphicon-user"></i></div>
+    </div>
+    <div style="display: flex; margin:10px 0 0 50px; ">
+        <span><h4>Thời khóa biểu sinh viên</h4> <hr></span>
+    </div>
+    <!-- <div>
+        <form action='/timetable/upload' enctype="multipart/form-data" method="post">
+            <input type="file" name="uploadfile" accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' >
+            <input type="submit" value="Upload Excel">
+          </form>  
+    </div> -->
+    <table id = "myTable">
+        <thead>
+            <tr class="ex">
+                <th>Mã lớp</th>
+                <th>Mã Học Phần</th>
+                <th>Tên Học Phần</th>
+                <th>Giảng viên</th>
+                <th>Thứ</th>
+                <th>Thời gian</th>
+                <th>Phòng học</th>
+            </tr>
+        </thead>
+        <tbody>
+        <%
+        if(data.recordset.length!=0){
+        for(var i=0; i< data.recordset.length; i++){
+        %>
+        <tr>
+            <td><%=data.recordset[i].classID %></td>
+            <td><%=data.recordset[i].subjectID %></td>
+            <td><%=data.recordset[i].name %></td>
+            <td><%=data.recordset[i].teacher %></td>
+            <td><%=data.recordset[i].day %></td>
+            <td><%=data.recordset[i].starttime.toString().concat("-", data.recordset[i].endtime.toString()) %></td>
+            <td><%=data.recordset[i].place %></td>
+        </tr>
+      
+        <% }}else{ %>
+            <tr>
+                <td colspan="7">No Data Found</td>
+            </tr>
+        <% } %>
+    </tbody>
+    </table>
+    </br>
+    <footer></br>HUST &copy; @author_PhanTrang</footer> 
+</body>
+</html>

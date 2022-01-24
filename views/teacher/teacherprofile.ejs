@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cập nhật điểm</title>
+    <link rel="stylesheet" type ="text/css" href = "/css/web.css" />
+    <link rel="stylesheet" type ="text/css" href = "/css/style_teacherr.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type ="text/javascript" src = "/web.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- sweetalert -->
+    <link rel='stylesheet' href='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.css'>
+    <script src='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.min.js'></script>
+</head>
+
+<body>
+    <header>
+        <h3>Hệ Thống Thông Tin Sinh Viên</h3>
+    </header>
+    <div class = "header">
+        <div class = "logo"><img src = '/image/logo.png' style = "width : 50px;" /></div>
+        <div class = "menu">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/teacher/teacherhome"  title="TRANG CHỦ">TRANG CHỦ</a></li>
+                <li><a href="/teacher/teachertimetable"  title="THỜI KHOA BIỂU">THỜI KHOA BIỂU GIẢNG DẠY</a></li>
+                <li><a href="/teacher/updategrade"  title="KẾT QUẢ HỌC TẬP">CẬP NHẬT KẾT QUẢ HỌC TẬP</a></li>
+                <li><a href="/logout"  title="ĐĂNG XUẤT"><b>ĐĂNG XUẤT</b></a></li>
+        </div>
+        <div class = "other"><span><a href="/teacherprofile"> <%=username%></a></span><i class="glyphicon glyphicon-user"></i></div>
+    </div>
+    <div style="display: flex; margin:20px 0 0 50px; ">
+        <span><h4>Thông tin giảng viên</h4> <hr></span>
+    </div>
+    <div class="info-stu" style="margin: 10px 0 20px 50px;;">
+
+        <div>
+            <!-- <span>Thông Tin Sinh Viên</span>
+            <div><br><hr></div> -->
+            <span><strong>Họ và tên&emsp;: </strong><%= data.recordset[0].name %><br/>
+            <strong>Mã số giảng viên&emsp;: </strong><%= data.recordset[0].teacherID %><br/>
+            <strong>Ngày sinh&emsp;: </strong><%= data.recordset[0].dateofbirth.getDate() +"/" + (data.recordset[0].dateofbirth.getMonth()+1)+"/" +  data.recordset[0].dateofbirth.getFullYear() %><br/>
+            <strong>Khoa/Viện quản lý&emsp;: </strong><%= data.recordset[0].departname %><br/>
+            <strong>Tình trạng công tác&emsp;: <% if(data.recordset[0].status){ %> </strong> ĐANG CÔNG TÁC <% }else{ %> </strong> THÔI CÔNG TÁC <% } %> </span> 
+        </div>
+        <div>
+            <span><strong>Giới tính&emsp;:  <% if(data.recordset[0].gender){ %> </strong> Nam <% }else{ %> </strong> Nữ <% } %> <br/>
+            <strong>SĐT&emsp;: </strong><%= data.recordset[0].phonenumber %><br/>
+            <strong>Email&emsp;: </strong><%= data.recordset[0].email %><br/></span>
+        </div>
+    </div>
+
+    <footer></br>HUST &copy; @author_PhanTrang</footer>
+</body>
+</html>

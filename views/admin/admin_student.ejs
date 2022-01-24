@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Trang quản lý Admin</title>
+    <link rel="stylesheet" type ="text/css" href = "/css/web.css" />
+    <link rel="stylesheet" type ="text/css" href = "/css/style_teacherr.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type ="text/javascript" src = "./web.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- sweetalert -->
+    <link rel='stylesheet' href='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.css'>
+    <script src='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.min.js'></script>
+</head>
+<body>
+    <header>
+        <h3>Hệ Thống Thông Tin Sinh Viên</h3>
+    </header>
+    <div class = "header">
+        <div class = "logo"><img src = '/image/logo.png' style = "width : 50px;" /></div>
+        <div class = "menu">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/admin/admin_home"  title=" THÔNG BÁO">THÔNG BÁO</a></li>
+                <li><a href="/admin/admin_teacher"  title="GIANG VIÊN">GIẢNG VIÊN</a></li>
+                <li><a href="/admin/admin_student"  title="SINH VIÊN">SINH VIÊN</a></li>
+                <li><a href="/logout"  title="ĐĂNG XUẤT"><b>ĐĂNG XUẤT</b></a></li>
+        </div>
+        <div class = "other"><span><a href=""> Admin</a></span><i class="glyphicon glyphicon-user"></i></div>
+    </div>
+    <div id = "sinhvien">
+        <p class="timkiemhocphan"><b>TÌM KIẾM:</b></p>
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Nhập MSSV / Họ Tên Sinh Viên....">
+        <div style="margin: 50px;"></div>
+        <form><button type="button" data-toggle="tooltip" title="Thêm Sinh Viên" onclick="location.href = '/admin/addstudent';"><i class="fa fa-user-plus" style="font-size:18px"></i></button>
+        </form>
+        <!-- <form><button class="nv btn add-new" type="button" data-toggle="tooltip" data-placement="top"
+            title="Thêm Sinh Viên"><i class="fa fa-user-plus" style="font-size:18px"></i></button>
+        </form> -->
+        <table id = "myTable">
+            <thead>
+                <tr>
+                    <th>MSSV</th>
+                    <th>Họ Tên</th>
+                    <th>Giới Tính</th>
+                    <th>Ngày sinh</th>
+                    <th> Khóa </th>
+                    <th>Trạng thái</th>
+                    <th>Chỉnh sửa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(data.recordset.length!=0){
+                     for(var i=0; i< data.recordset.length; i++){
+                  %>
+                 <tr>
+                    <td><%=data.recordset[i].studentID %></td>
+                    <td><%=data.recordset[i].name %></td>
+                    <td><% if(data.recordset[i].gender){ %>  Nam </td>  <% }else{ %> Nữ  </td>  <% } %> 
+                    <td><%=data.recordset[i].dateofbirth.getDate() +"/" + (data.recordset[i].dateofbirth.getMonth()+1)+"/" +  data.recordset[i].dateofbirth.getFullYear() %></td>
+                    <td><%= data.recordset[i].enteryear - 1955 %></td>
+                    <td><% if(data.recordset[i].status){ %> HỌC </td> <% }else{ %> KHÔNG HỌC </td><% } %>
+                    <td>
+                        <a href="/admin/updatestudent?id=<%= data.recordset[i].studentID%>"  ><i class="fa fa-pencil"
+                            ></i></a>
+                        <!-- <a  class="add" title="Lưu Lại" data-toggle="tooltip"><i class="fa fa-floppy-o"
+                        aria-hidden="true"></i></a> -->
+                         <!-- <a class="edit" title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
+                        aria-hidden="true"></i></a></td> -->
+                </tr>
+      
+                 <% }}else{ %>
+              <tr>
+                <td colspan="7">No Data Found</td>
+             </tr>
+             <% } %>
+            </tbody>
+        </table>
+    </div>
+    <!-- <script type="text/javascript">
+    //Thêm
+         $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            var actions = $("table td:last-child").html();
+            $(".add-new").click(function () {
+                $(this).attr("disabled", "disabled");
+                var index = $("table tbody tr:last-child").index();
+                var row = '<tr>' +
+                    '<td><input type="text" class="form-control" name="MSSV" id="MSSV" value="" placeholder="Nhập MSSV"></td>' +
+                    '<td><input type="text" class="form-control" name="name" id="name" placeholder="Nhập Tên">' +
+                    // '<label for="name" id="noti1"  style="color:black;">  </label></td>' +
+                    '<td><input type="text" class="form-control" name="gioitinh" id="gioitinh" placeholder="Nhập Giới Tính"></td>' +
+                    '<td><input type="text" class="form-control" name="namsinh" id="namsinh" value="" placeholder="Nhập Ngày Sinh"></td>' +
+                    '<td><input type="text" class="form-control" name="khoa" id="khoa" placeholder="Nhập Khóa"></td>' +
+                    '<td><input type="text" class="form-control" name="trangthai" id="trangthai" placeholder="Nhập Trạng Thái Học tập "></td>' +
+                    '<td>' + actions + '</td>' +
+                    '</tr>';
+                $("table").append(row);
+                $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+            //Kiểm tra rỗng
+            $(document).on("click", ".add", function () {
+                var empty = false;
+                var input = $(this).parents("tr").find('input[type="text"]');
+                input.each(function () {
+                    if (!$(this).val()) {
+                        $(this).addClass("error");
+                        swal("Thông Báo!", "Dữ Liệu Trống Vui Lòng Kiểm Tra", "error");
+                        empty = true;
+                    } else {
+                        $(this).removeClass("error");
+                        swal("Thông Báo!", "Bạn Chưa Nhập Dữ Liệu", "warning");
+                    }
+                });
+                $(this).parents("tr").find(".error").first().focus();
+                if (!empty) {
+                    input.each(function () {
+                        $(this).parent("td").html($(this).val());
+                        swal("Thành Công", "Bạn Đã Cập Nhật Thành Công", "success");
+                    });
+                    $(this).parents("tr").find(".add, .edit").toggle();
+                    $(".add-new").removeAttr("disabled");
+                }
+            });
+            // Sửa
+            $(document).on("click", ".edit", function () {
+                $(this).parents("tr").find("td:not(:last-child)").each(function () {
+                    $(this).html('<input type="text" class="form-control" value="' + $(this)
+                        .text() + '">');
+                });
+                $(this).parents("tr").find(".add, .edit ").toggle();
+                $(".add-new").attr("disabled", "disabled");
+            });
+            jQuery(function () {
+                jQuery(".add").click(function () {
+                    swal("Thành Công!", "Bạn Đã Sửa Thành Công", "success");
+                });
+            });
+            // Xóa
+            // $(document).on("click", ".delete", function () {
+            //     $(this).parents("tr").remove();
+            //     alert("Thành Công!", "Bạn Đã Xóa Thành Công", "success");
+            //     $(".add-new").removeAttr("disabled");
+            // });
+        });
+    </script>
+    <script type="text/javascript">
+        //Tìm kiếm
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                td2 = tr[i].getElementsByTagName("td")[1];
+                if (td || td2) {
+                    txtValue = td.textContent || td.innerText;
+                    txtValue2 = td2.textContent || td2.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1 || txtValue2.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";  }}
+            }
+        }
+    
+    </script> -->
+    <div>
+        <a href='/admin/deletestudent'> clear
+        </a>  
+    </div>
+    <footer></br>HUST &copy; @author_PhanTrang</footer>
+</body>
+
+</html>

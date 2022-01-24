@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hệ Thống</title>
+    <link rel="stylesheet" type ="text/css" href = "/css/web.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type ="text/javascript" src = "/web.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+</head>
+<body onload="time()">
+
+<header>
+<h3>Hệ Thống Thông tin Sinh Viên</h3>
+</header>
+<div class = "header">
+    <div class = "logo"><img src = '/image/logo.png' style = "width : 50px;" /></div>
+    <div class = "menu">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/student/home"  title="TRANG CHỦ">TRANG CHỦ</a></li>
+            <li><a href="/student/timetable"  title="THỜI KHOA BIỂU">THỜI KHOA BIỂU</a></li>
+            <li><a href="/student/grade"  title="KẾT QUẢ HỌC TẬP">KẾT QUẢ HỌC TẬP</a></li>
+            <li><a href="/student/roadmap"  title="CHƯƠNG TRINH HỌC">CHƯƠNG TRINH HỌC</a></li>
+            <li><a href="/logout"  title="ĐĂNG XUẤT"><b>ĐĂNG XUẤT</b></a></li>
+    </div>
+    <div class = "other"><span><a href="/student/studentprofile"> <%=username%></a></span><i class="glyphicon glyphicon-user"></i></div>
+</div>
+<div id = "sinhvien">
+    <p class="timkiemhocphan"><b>TÌM KIẾM HỌC PHẦN:</b></p>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Nhập tên Học kì/Mã học phần....">
+    <div style="margin: 50px;"></div>
+
+    <table id = "myTable">
+        <thead>
+            <tr class="ex">
+                <th>Học Kì</th>
+                <th>Mã Học Phần</th>
+                <th>Tên Học Phần</th>
+                <th>Điểm QT</th>
+                <th>Điểm CK</th>
+                <th>Điểm học phần</th>
+                <th>Số TC</th>
+                <th>Chú ý</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%
+        if(data.recordset.length!=0){
+        for(var i=0; i< data.recordset.length; i++){
+        %>
+        <tr>
+            <td><%=data.recordset[i].semesterID %></td>
+            <td><%=data.recordset[i].subjectID %></td>
+            <td><%=data.recordset[i].name %></td>
+            <td><%=data.recordset[i].midterm_grade %></td>
+            <td><%=data.recordset[i].finalterm_grade %></td>
+            <td><%=data.recordset[i].avg_grade %></td>
+            <td><%=data.recordset[i].credit %></td>
+            <td></td>
+        </tr>
+      
+        <% }}else{ %>
+            <tr>
+                <td colspan="7">No Data Found</td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+    <table id = "GPA">
+        <thead>
+            <tr class="gpa">
+                <th style="width: 300px; text-align: center; border: 1px solid black ;">Học Kì</th>
+                <th style="width: 300px; text-align: center; border: 1px solid black">GPA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%
+            if(data1.recordset.length!=0){
+            for(var i=0; i< data1.recordset.length; i++){
+            %>
+            <tr>
+                <td><%=data1.recordset[i].semesterID %></td>
+                <td><%=data1.recordset[i].GPA %></td>
+                <td></td>
+            </tr>
+          
+            <% }}else{ %>
+                <tr>
+                    <td colspan="7">No Data Found</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+
+
+<footer></br>HUST &copy; @author_PhanTrang</footer> 
+
+<script type="text/javascript">
+    //Tìm kiếm
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            td2 = tr[i].getElementsByTagName("td")[1];
+            if (td || td2) {
+                txtValue = td.textContent || td.innerText;
+                txtValue2 = td2.textContent || td2.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1 || txtValue2.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";  }}
+        }
+    }
+</script>
+</body>
+</html>

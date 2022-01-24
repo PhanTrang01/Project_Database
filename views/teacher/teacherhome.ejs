@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cập nhật điểm</title>
+    <link rel="stylesheet" type ="text/css" href = "/css/web.css" />
+    <link rel="stylesheet" type ="text/css" href = "/css/style_teacherr.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type ="text/javascript" src = "/web.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- sweetalert -->
+    <link rel='stylesheet' href='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.css'>
+    <script src='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.min.js'></script>
+</head>
+
+<body>
+    <header>
+        <h3>Hệ Thống Thông Tin Sinh Viên</h3>
+    </header>
+    <div class = "header">
+        <div class = "logo"><img src = '/image/logo.png' style = "width : 50px;" /></div>
+        <div class = "menu">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/teacher/teacherhome"  title="TRANG CHỦ">TRANG CHỦ</a></li>
+                <li><a href="/teacher/teachertimetable"  title="THỜI KHOA BIỂU">THỜI KHOA BIỂU GIẢNG DẠY</a></li>
+                <li><a href="/teacher/updategrade"  title="KẾT QUẢ HỌC TẬP">CẬP NHẬT KẾT QUẢ HỌC TẬP</a></li>
+                <li><a href="/logout"  title="ĐĂNG XUẤT"><b>ĐĂNG XUẤT</b></a></li>
+        </div>
+        <div class = "other"><span><a href="/teacher/teacherprofile"> <%=username%></a></span><i class="glyphicon glyphicon-user"></i></div>
+    </div>
+    <div>
+        <img src="/image/Cover .jpg" style = "width : 100%; height: 350px;" />
+    </div>
+    <div class="info">
+        <h3><b>Thông báo</b></h3>
+        <div class="content">
+            <%
+            if(data.recordset.length!=0){
+            for(var i=data.recordset.length-1; i>= 0; i--){
+            %>
+            <div class="item">
+                <div class="item-content item-left date">
+                    <p class="month">Tháng <%= (data.recordset[i].release_date.getMonth()+1) %></p>
+                    <p class="date"> <%= data.recordset[i].release_date.getDate() %></p>
+                </div>
+                <div class="item-content item-right">
+                    <a href=<%= data.recordset[0].URL %>>
+                        <p class="title">
+                            <b>[DTDH]</b> <%= data.recordset[i].title %>
+                        </p>
+                        <p class="datetime"><%= data.recordset[i].release_date.getDate() +"/" + (data.recordset[i].release_date.getMonth()+1)+"/" +  data.recordset[i].release_date.getFullYear() %></p>
+                    </a>
+                </div>
+            </div>
+            <% }}else{ %>
+                <tr>
+                    <td colspan="7">No Data Found</td>
+                </tr>
+            <% } %>
+        </div>
+    </div>
+
+    <footer></br>HUST &copy; @author_PhanTrang</footer> 
+<script>
+    var curDate = new Date();
+    var curMonth = curDate.getMonth() + 1;
+    document.getElementById('Time').innerText ='Tháng' + curMonth;
+</script>
+</body>
+</html>
